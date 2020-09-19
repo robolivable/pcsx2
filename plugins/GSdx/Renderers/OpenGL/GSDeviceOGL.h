@@ -189,18 +189,17 @@ public:
 
 	struct alignas(32) PSConstantBuffer
 	{
-		GSVector4 FogColor_AREF;
-		GSVector4 WH;
-		GSVector4 TA_Af;
-		GSVector4i MskFix;
-		GSVector4i FbMask;
+		GSVector4 FogColor_AREF; // 0
+		GSVector4 WH;            // 1
+		GSVector4 TA_Af;         // 2
+		GSVector4i MskFix;       // 3
+		GSVector4i FbMask;       // 4
+		GSVector4 HalfTexel;     // 5
+		GSVector4 MinMax;        // 6
+		GSVector4 TC_OH_TS;      // 7
+		GSVector4 MaxDepth;      // 8
 
-		GSVector4 HalfTexel;
-		GSVector4 MinMax;
-		GSVector4 TC_OH_TS;
-		GSVector4 MaxDepth;
-
-		GSVector4 DitherMatrix[4];
+		GSVector4 DitherMatrix[4]; // 9 + 3
 
 		PSConstantBuffer()
 		{
@@ -225,10 +224,11 @@ public:
 			GSVector4i* a = (GSVector4i*)this;
 			GSVector4i* b = (GSVector4i*)cb;
 
-			// if WH matches both HalfTexel and TC_OH_TS do too
-			// MinMax depends on WH and MskFix so no need to check it too
-			if(!((a[0] == b[0]) & (a[1] == b[1]) & (a[2] == b[2]) & (a[3] == b[3]) & (a[4] == b[4])
-				& (a[8] == b[8]) & (a[9] == b[9]) & (a[10] == b[10]) & (a[11] == b[11]) & (a[12] == b[12])).alltrue())
+			// Possible optimizations, but can cause issues.
+			// if WH matches both HalfTexel and TC_OH_TS do too ( WH 1, HalfTexel 5, TC_OH_TS 7)
+			// MinMax depends on WH and MskFix so no need to check it too (MinMax 6, WH 1, MskFix 3)
+			if (!((a[0] == b[0]) & (a[1] == b[1]) & (a[2] == b[2]) & (a[3] == b[3]) & (a[4] == b[4]) & (a[5] == b[5]) & (a[6] == b[6]) //
+				& (a[7] == b[7]) & (a[8] == b[8]) & (a[9] == b[9]) & (a[10] == b[10]) & (a[11] == b[11]) & (a[12] == b[12])).alltrue())
 			{
 				// Note previous check uses SSE already, a plain copy will be faster than any memcpy
 				a[0] = b[0];
@@ -237,7 +237,8 @@ public:
 				a[3] = b[3];
 				a[4] = b[4];
 				a[5] = b[5];
-
+				a[6] = b[6];
+				a[7] = b[7];
 				a[8] = b[8];
 
 				a[9] = b[9];
