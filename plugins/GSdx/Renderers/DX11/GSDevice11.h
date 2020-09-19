@@ -95,30 +95,30 @@ public:
 
 	struct alignas(32) PSConstantBuffer
 	{
-		GSVector4 FogColor_AREF;
-		GSVector4 HalfTexel;
-		GSVector4 WH;
-		GSVector4 MinMax;
-		GSVector4 MinF_TA;
-		GSVector4i MskFix;
-		GSVector4i ChannelShuffle;
-		GSVector4i FbMask;
+		GSVector4 FogColor_AREF;   // 0
+		GSVector4 HalfTexel;       // 1
+		GSVector4 WH;              // 2
+		GSVector4 MinMax;          // 3
+		GSVector4 MinF_TA;         // 4
+		GSVector4i MskFix;         // 5
+		GSVector4i ChannelShuffle; // 6
+		GSVector4i FbMask;         // 7
+		GSVector4 TC_OffsetHack;   // 8
+		GSVector4 Af_MaxDepth;     // 9
 
-		GSVector4 TC_OffsetHack;
-		GSVector4 Af_MaxDepth;
-		GSVector4 DitherMatrix[4];
+		GSVector4 DitherMatrix[4]; // 10 + 3
 
 		PSConstantBuffer()
 		{
-			FogColor_AREF = GSVector4::zero();
-			HalfTexel = GSVector4::zero();
-			WH = GSVector4::zero();
-			MinMax = GSVector4::zero();
-			MinF_TA = GSVector4::zero();
-			MskFix = GSVector4i::zero();
+			FogColor_AREF  = GSVector4::zero();
+			HalfTexel      = GSVector4::zero();
+			WH             = GSVector4::zero();
+			MinMax         = GSVector4::zero();
+			MinF_TA        = GSVector4::zero();
+			MskFix         = GSVector4i::zero();
 			ChannelShuffle = GSVector4i::zero();
-			FbMask = GSVector4i::zero();
-			Af_MaxDepth = GSVector4::zero();
+			FbMask         = GSVector4i::zero();
+			Af_MaxDepth    = GSVector4::zero();
 
 			DitherMatrix[0] = GSVector4::zero();
 			DitherMatrix[1] = GSVector4::zero();
@@ -131,9 +131,11 @@ public:
 			GSVector4i* a = (GSVector4i*)this;
 			GSVector4i* b = (GSVector4i*)cb;
 
-			if(!((a[0] == b[0]) /*& (a[1] == b1)*/ & (a[2] == b[2]) & (a[3] == b[3]) & (a[4] == b[4]) & (a[5] == b[5]) &
-				(a[6] == b[6]) & (a[7] == b[7]) & (a[9] == b[9]) & // if WH matches HalfTexel does too
-				(a[10] == b[10]) & (a[11] == b[11]) & (a[12] == b[12]) & (a[13] == b[13])).alltrue())
+			// Possible optimizations, but can cause issues.
+			// if WH matches both HalfTexel and TC_OH_TS do too ( WH 2, HalfTexel 1, TC_OffsetHack 8)
+			// MinMax depends on WH and MskFix so no need to check it too (MinMax 3, WH 2, MskFix 5)
+			if (!((a[0] == b[0]) & (a[1] == b[1]) & (a[2] == b[2]) & (a[3] == b[3]) & (a[4] == b[4]) & (a[5] == b[5]) & (a[6] == b[6]) & (a[7] == b[7]) //
+				& (a[8] == b[8]) & (a[9] == b[9]) & (a[9] == b[9]) & (a[10] == b[10]) & (a[11] == b[11]) & (a[12] == b[12]) & (a[13] == b[13])).alltrue())
 			{
 				a[0] = b[0];
 				a[1] = b[1];
@@ -143,6 +145,7 @@ public:
 				a[5] = b[5];
 				a[6] = b[6];
 				a[7] = b[7];
+				a[8] = b[8];
 				a[9] = b[9];
 
 				a[10] = b[10];
