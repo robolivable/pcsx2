@@ -650,9 +650,6 @@ namespace usb_mic
 				pDst += samples;
 				samples_to_read -= samples;
 			}
-					   mOutBuffer.MilliSecsSinceLastWrite(), mOutBuffer.peek_read(),
-					   1000 * mOutBuffer.peek_read<short>() / mSamplesPerSec / mDeviceChannels);
-			if (!ReleaseMutex(mMutex))
 
 			return (outFrames - (samples_to_read / mDeviceChannels));
 		}
