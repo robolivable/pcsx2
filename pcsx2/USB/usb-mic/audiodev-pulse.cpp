@@ -747,8 +747,6 @@ namespace usb_mic
 				return;
 			}
 
-			if (padev->mInBuffer.capacity() < nbytes)
-
 			padev->mInBuffer.write((uint8_t*)padata, nbytes);
 
 			//if copy succeeded, drop samples at pulse's side
