@@ -781,14 +781,6 @@ namespace usb_mic
 					break; //TODO happens?
 				padev->mInBuffer.read<float>(samples);
 			}
-
-			/*
-				nbytes,
-				nbytes / sizeof(float) / padev->GetChannels(),
-				input_frames_used,
-				padev->mInBuffer.peek_read(),
-				output_frames_gen);*/
-
 			std::lock_guard<std::mutex> lock(padev->mMutex);
 
 			size_t output_samples = output_frames_gen * padev->GetChannels();
