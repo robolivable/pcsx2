@@ -35,7 +35,7 @@ void SysMessageA(const char* fmt, ...)
 	va_start(list, fmt);
 	vsprintf_s(tmp, 512, fmt, list);
 	va_end(list);
-	MessageBoxA(0, tmp, "Qemu USB Msg", 0);
+	MessageBoxA(0, tmp, "USB Msg", 0);
 }
 
 void SysMessageW(const wchar_t* fmt, ...)
@@ -46,7 +46,7 @@ void SysMessageW(const wchar_t* fmt, ...)
 	va_start(list, fmt);
 	vswprintf_s(tmp, 512, fmt, list);
 	va_end(list);
-	MessageBoxW(0, tmp, L"Qemu USB Msg", 0);
+	MessageBoxW(0, tmp, L"USB Msg", 0);
 }
 
 void SelChangedAPI(HWND hW, int port)
