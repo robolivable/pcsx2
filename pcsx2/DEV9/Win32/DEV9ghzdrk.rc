@@ -10,17 +10,16 @@
 #define APSTUDIO_HIDDEN_SYMBOLS
 #include "windows.h"
 #undef APSTUDIO_HIDDEN_SYMBOLS
+
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Spanish (Argentina) resources
+// Espagnol (Argentine) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ESS)
-#ifdef _WIN32
 LANGUAGE LANG_SPANISH, SUBLANG_SPANISH_ARGENTINA
 #pragma code_page(1252)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -74,17 +73,6 @@ BEGIN
     EDITTEXT        IDC_HDDFILE,85,115,191,12,ES_AUTOHSCROLL | WS_DISABLED
 END
 
-IDD_ABOUT DIALOGEX 0, 0, 177, 106
-STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "DEV9 About"
-FONT 8, "MS Sans Serif", 0, 0, 0x1
-BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,65,85,50,14
-    LTEXT           "DEV9  Driver",IDC_NAME,59,7,42,8
-    LTEXT           "Original Authors:\n\tlinuzappz <linuzappz@hotmail.com>\n\tShadow <shadow@pcsx2.net>",IDC_STATIC,7,18,141,30
-    LTEXT           "Fixed and improved by:\n\tgigahez <gigaherz@pcsx2.net>\n\tdrk||Raziel",IDC_STATIC,7,49,155,27
-END
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -92,7 +80,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_CONFIG, DIALOG
     BEGIN
@@ -101,18 +89,10 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 164
     END
-
-    IDD_ABOUT, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 170
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 99
-    END
 END
 #endif    // APSTUDIO_INVOKED
 
-#endif    // Spanish (Argentina) resources
+#endif    // Espagnol (Argentine) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

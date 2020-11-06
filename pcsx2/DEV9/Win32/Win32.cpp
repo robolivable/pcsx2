@@ -168,15 +168,6 @@ void DEV9configure()
 	paused_core.AllowResume();
 }
 
-EXPORT_C_(void)
-DEV9about()
-{
-	DialogBox(hInst,
-			  MAKEINTRESOURCE(IDD_ABOUT),
-			  GetActiveWindow(),
-			  (DLGPROC)AboutDlgProc);
-}
-
 /*
 UINT DEV9ThreadProc() {
 	DEV9thread();
